@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.common.jvm)
     implementation(libs.gson)
     implementation(libs.converter.scalars)
+    implementation (libs.squareup.picasso)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
