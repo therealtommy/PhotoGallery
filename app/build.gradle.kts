@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.converter.scalars)
     implementation (libs.squareup.picasso)
+    implementation(libs.androidx.runner)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

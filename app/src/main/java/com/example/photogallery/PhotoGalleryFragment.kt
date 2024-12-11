@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
+import androidx.constraintlayout.widget.Constraints
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -30,20 +31,19 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.util.concurrent.TimeUnit
 
 private const val TAG = "PhotoGalleryFragment"
-
+private const val POLL_WORK = "POLL_WORK"
 
 class PhotoGalleryFragment : Fragment() {
-    private lateinit var photoRecyclerView:
-            RecyclerView
-    private lateinit var photoGalleryViewModel:
-            PhotoGalleryViewModel
+
+    private lateinit var photoGalleryViewModel : PhotoGalleryViewModel
+    private lateinit var photoRecyclerView : RecyclerView
     private lateinit var thumbnailDownloader : ThumbnailDownloader<PhotoHolder>
 
 
-    override fun onCreate(savedInstanceState:
-                          Bundle?) {
+    override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
         setHasOptionsMenu(true)
@@ -55,7 +55,7 @@ class PhotoGalleryFragment : Fragment() {
                 val drawable = BitmapDrawable(resources, bitmap)
                 photoHolder.bindDrawable(drawable)
             }
-        photoGalleryViewModel = ViewModelProvider(this).get(PhotoGalleryViewModel::class.java)
+        photoGalleryViewModel = ViewModelProviders.of(this).get(PhotoGalleryViewModel::class.java)
         lifecycle.addObserver(thumbnailDownloader.fragmentLifecycleObserver)
     }
 
@@ -65,27 +65,25 @@ class PhotoGalleryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view =
-            inflater.inflate(R.layout.fragment_photo_gallery, container, false)
-        photoRecyclerView =
-            view.findViewById(R.id.photo_recycler_view)
-        photoRecyclerView.layoutManager =
-            GridLayoutManager(context, 3)
+        viewLifecycleOwner.lifecycle.addObserver(thumbnailDownloader.viewLifecycleObserver)
+        val view = inflater.inflate(R.layout.fragment_photo_gallery, container, false)
+        photoRecyclerView = view.findViewById(R.id.photo_recycler_view)
+        photoRecyclerView.layoutManager = GridLayoutManager(context, 3)
         return view
     }
 
-    override fun onViewCreated(view: View,
-                               savedInstanceState: Bundle?) {
-        super.onViewCreated(view,
-            savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         photoGalleryViewModel.galleryItemLiveData.observe(
             viewLifecycleOwner,
             Observer { galleryItems ->
-                photoRecyclerView.adapter =
-                    PhotoAdapter(galleryItems)
+                Log.d(TAG, "Have gallery items from view model $galleryItems")
+                photoRecyclerView.adapter = PhotoAdapter(galleryItems)
             })
-
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -93,10 +91,14 @@ class PhotoGalleryFragment : Fragment() {
         viewLifecycleOwner.lifecycle.removeObserver(thumbnailDownloader.viewLifecycleObserver)
     }
 
+
+
     override fun onDestroy() {
         super.onDestroy()
         lifecycle.removeObserver(thumbnailDownloader.fragmentLifecycleObserver)
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -120,6 +122,7 @@ class PhotoGalleryFragment : Fragment() {
                 searchView.setQuery(photoGalleryViewModel.searchTerm, false)
             }
         }
+
         val toggleItem = menu.findItem(R.id.menu_item_toggle_polling)
         val isPolling = QueryPreferences.isPolling(requireContext())
         val toggleItemTitle = if (isPolling) {
@@ -161,6 +164,7 @@ class PhotoGalleryFragment : Fragment() {
         }
     }
 
+
     private class PhotoHolder(private val itemImageView: ImageView):
         RecyclerView.ViewHolder(itemImageView) {
         val bindDrawable: (Drawable) -> Unit = itemImageView::setImageDrawable
@@ -194,7 +198,6 @@ class PhotoGalleryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() =
-            PhotoGalleryFragment()
+        fun newInstance() = PhotoGalleryFragment()
     }
 }
