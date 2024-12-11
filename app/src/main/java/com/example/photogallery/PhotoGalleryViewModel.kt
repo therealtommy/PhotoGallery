@@ -1,12 +1,12 @@
 package com.example.photogallery
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import com.example.photogallery.api.FlickrFetchr
+
 
 class PhotoGalleryViewModel(private val app: Application) : AndroidViewModel(app) {
     val galleryItemLiveData : LiveData<List<GalleryItem>>

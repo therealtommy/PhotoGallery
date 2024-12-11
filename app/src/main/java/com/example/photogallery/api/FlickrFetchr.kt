@@ -1,21 +1,21 @@
 package com.example.photogallery.api
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.support.annotation.WorkerThread
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.photogallery.GalleryItem
-import com.example.photogallery.PhotoResponse
-import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import androidx.annotation.WorkerThread
+import com.example.photogallery.GalleryItem
+import com.example.photogallery.PhotoResponse
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import okhttp3.ResponseBody
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
+
 
 private const val TAG = "FlickrFetchr"
 class FlickrFetchr {

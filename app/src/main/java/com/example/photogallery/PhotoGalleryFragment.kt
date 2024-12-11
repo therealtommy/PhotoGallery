@@ -13,7 +13,7 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.Menu
@@ -26,6 +26,9 @@ import androidx.work.NetworkType
 import java.util.concurrent.TimeUnit
 import androidx.work.WorkManager
 import androidx.work.PeriodicWorkRequest
+
+
+
 private const val TAG = "PhotoGalleryFragment"
 private const val POLL_WORK = "POLL_WORK"
 
@@ -48,7 +51,7 @@ class PhotoGalleryFragment : Fragment() {
                 val drawable = BitmapDrawable(resources, bitmap)
                 photoHolder.bindDrawable(drawable)
             }
-        photoGalleryViewModel = ViewModelProvider(this).get(PhotoGalleryViewModel::class.java)
+        photoGalleryViewModel = ViewModelProviders.of(this).get(PhotoGalleryViewModel::class.java)
         lifecycle.addObserver(thumbnailDownloader.fragmentLifecycleObserver)
     }
 
