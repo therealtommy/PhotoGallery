@@ -23,6 +23,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.example.photogallery.api.FlickrApi
 import com.example.photogallery.api.FlickrFetchr
 import com.squareup.picasso.Picasso
@@ -55,7 +59,7 @@ class PhotoGalleryFragment : Fragment() {
                 val drawable = BitmapDrawable(resources, bitmap)
                 photoHolder.bindDrawable(drawable)
             }
-        photoGalleryViewModel = ViewModelProviders.of(this).get(PhotoGalleryViewModel::class.java)
+        photoGalleryViewModel = ViewModelProvider(this).get(PhotoGalleryViewModel::class.java)
         lifecycle.addObserver(thumbnailDownloader.fragmentLifecycleObserver)
     }
 

@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.android.work.runtime)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -49,8 +49,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.common.jvm)
     implementation(libs.gson)
     implementation(libs.converter.scalars)
-    implementation (libs.squareup.picasso)
+    implementation(libs.squareup.picasso)
     implementation(libs.androidx.runner)
+    implementation(libs.androidx.espresso.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
