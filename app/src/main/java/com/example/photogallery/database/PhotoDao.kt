@@ -1,10 +1,10 @@
-package com.example.photogallery.database
-
+package database
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.photogallery.GalleryItem
+
 @Dao
 interface PhotoDao {
     @Query("SELECT * FROM galleryitem")
@@ -14,5 +14,5 @@ interface PhotoDao {
     @Query("DELETE FROM galleryitem")
     suspend fun delPhotos()
     @Insert
-    fun addCrime(galleryItem: GalleryItem)
+    fun addPhoto(galleryItem: GalleryItem)
 }
