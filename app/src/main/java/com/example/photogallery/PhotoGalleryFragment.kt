@@ -93,7 +93,8 @@ class PhotoGalleryFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
+        super.
+        onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.fragment_photo_gallery, menu)
 
         val searchItem: MenuItem = menu.findItem(R.id.menu_item_search)
