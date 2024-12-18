@@ -4,7 +4,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
 import android.content.Intent
-
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 class PhotoGalleryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,11 +23,11 @@ class PhotoGalleryActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newIntent(context: Context): Intent
-        {
-            return Intent(context,
-                PhotoGalleryActivity::class.java)
+        fun newIntent(context: Context): Intent {
+            return Intent(
+                context,
+                PhotoGalleryActivity::class.java
+            )
         }
     }
-
 }
